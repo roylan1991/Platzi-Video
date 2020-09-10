@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { addFavorite, delFavorite } from '../actions';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import fondo from '../assets/images/fondo-item.jpg';
 import playIcon from '../assets/images/play-icon.png';
 import plusIcon from '../assets/images/plus-icon.png';
 import removeIcon from '../assets/images/remove-icon.png';
