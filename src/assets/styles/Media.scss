@@ -1,0 +1,26 @@
+@media only screen and (max-width: 600px) {
+  .main__description--title {
+    font-size: 30px;
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .login__container {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    width: 100%;
+  }
+
+  .register__container {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    width: 100%;
+  }
+}
