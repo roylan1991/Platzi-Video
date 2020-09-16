@@ -1,18 +1,16 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Webpack = require('webpack');
 
 module.exports = {
-    entry: ['./src/frontend/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
-    mode: 'development',
+    entry: './src/frontend/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         publicPath: "/",
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
@@ -20,14 +18,14 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
+                    loader: "babel-loader"
                 }
             },
             {
                 test: /\.html$/,
                 use: [
                     {
-                        loader: 'html-loader',
+                        loader: 'html-loader'
                     }
                 ]
             },
@@ -38,7 +36,7 @@ module.exports = {
                         loader: MiniCssExtractPlugin.loader,
                     },
                     'css-loader',
-                    'sass-loader',
+                    'sass-loader'
                 ]
             },
             {
@@ -47,7 +45,7 @@ module.exports = {
                     {
                         'loader': 'file-loader',
                         options: {
-                            name: 'assets/images/[hash].[ext]',
+                            name: 'assets/images/[hash].[ext]'
                         }
                     }
                 ]
@@ -64,7 +62,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'assets/[name].css'
-        }),
-        new Webpack.HotModuleReplacementPlugin(),
+        })
     ]
 };
