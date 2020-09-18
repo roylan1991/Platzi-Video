@@ -20,9 +20,20 @@ if (ENV === 'development') {
     app.use(webpackHotMiddleware(compiler));
 }
 
-app.get('*', (request, response) => {
-    console.log('Hola');
-    response.send({ hello: 'express' });
+const index = `<!DOCTYPE html>
+<html>
+    <head>
+        <title>Platzi Video</title>
+        <link href="assets/app.css" rel='stylesheet' type="text/css">
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="assets/app.js" type="text/javascript"></script>
+    </body>
+</html>`;
+
+app.get('*', (request, response) => {   
+    response.send(index);
 });
 
 app.listen(PORT, (error) => {

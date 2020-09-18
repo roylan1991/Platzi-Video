@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Webpack = require('webpack');
 
@@ -8,7 +7,7 @@ module.exports = {
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: 'assets/app.js',
         publicPath: "/",
     },
     resolve: {
@@ -58,13 +57,9 @@ module.exports = {
         historyApiFallback: true,
     },
     plugins: [
-        new Webpack.HotModuleReplacementPlugin(),
-        new HtmlWebPackPlugin({
-            template: './public/index.html',
-            filename: './index.html'
-        }),
+        new Webpack.HotModuleReplacementPlugin(),       
         new MiniCssExtractPlugin({
-            filename: 'assets/[name].css'
+            filename: 'assets/app.css'
         })
     ]
 };
