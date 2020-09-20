@@ -29,7 +29,7 @@ if (ENV === 'development') {
     app.use(webpackHotMiddleware(compiler));
 }
 
-const setResponse = (html) => {
+const setResponse = (html, preloadedState) => {
     return (`
     <!DOCTYPE html>
     <html>
