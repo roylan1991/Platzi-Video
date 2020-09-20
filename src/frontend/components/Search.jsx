@@ -15,7 +15,11 @@ const Search = (props) => {
     });
 
     const textoBusquedaVideo = (e) => {
-        props.buscarVideo(e.target.value);
+        if (e.target.value === "") {
+            props.buscarVideo("null");
+        } else {
+            props.buscarVideo(e.target.value);
+        }
     }
 
     return (

@@ -23,7 +23,7 @@ const Home = ({ busqueda, mylist, trends, originals }) => {
                         <Carousel>
                             {
                                 busqueda.map(item =>
-                                    <CarouselItem key={item.id} {...item} isList />
+                                    <CarouselItem key={item.id} {...item} />
                                 )
                             }
                         </Carousel>
