@@ -1,5 +1,12 @@
+require('ignore-styles');
+
 require('@babel/register')({
     presets: ['@babel/preset-env', '@babel/preset-react'],
+});
+
+require('asset-require-hook')({
+    extension: ['jpg', 'png', 'gif'],
+    name: '/assets/images/[hash].[ext]',
 });
 
 require('./server');
