@@ -10,6 +10,7 @@ import { StaticRouter } from 'react-router-dom';
 import serverRoutes from '../frontend/routes/ServerRoutes.js';
 import reducer from '../frontend/reducers/reducers.js';
 import initialState from '../frontend/utils/initialState.js';
+import helmet from 'helmet';
 
 //busca en el proyecto archivos .env
 dotenv.config();
@@ -27,6 +28,11 @@ if (ENV === 'development') {
 
     app.use(webpackDevMiddleware(compiler, serverConfig));
     app.use(webpackHotMiddleware(compiler));
+} else {
+    app.use(express.static(`${__dirname}/public`));
+    app.use(helmet());
+    app.use(helmet.permittedCrossDomainPolicies());
+    app.disable('x-powered-by');
 }
 
 const setResponse = (html, preloadedState) => {
@@ -66,6 +72,10 @@ const renderApp = (request, response) => {
 app.get('*', renderApp);
 
 app.listen(PORT, (error) => {
-    if (error) console.log(error);
-    else console.log('Server running on port 3000');
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Mode: ${ENV}`);
+    }
 });
