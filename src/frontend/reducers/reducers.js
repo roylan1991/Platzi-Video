@@ -34,7 +34,11 @@ const reducer = (state, action) => {
                 playing: state.trends.concat(state.originals).find(item => item.id === Number(action.id)) || []
             }
         case "BUSCAR_VIDEO":
-            return {
+            if (action.nombre === "") {
+                return {
+                    ...state, busqueda: [],
+                }
+            } else return {
                 ...state,
                 busqueda: state.trends.concat(state.originals).filter(item => item.title.toLowerCase().includes(action.nombre.toLowerCase()))
             }
