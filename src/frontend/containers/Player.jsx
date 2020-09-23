@@ -1,10 +1,8 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getVideo } from '../actions';
 import NotFound from './NotFound';
 import PropTypes from 'prop-types';
-//import { Redirect } from 'react-router-dom';
-//<Redirect to="/404/" />
 
 import '../assets/styles/components/Player.scss';
 
@@ -12,9 +10,8 @@ const Player = (props) => {
 
     const { id } = props.match.params;
     const existPlaying = Object.keys(props.playing).length > 0;
-
-    //Funciona igual que useEffect pero renderiza de forma asíncrona.
-    useLayoutEffect(() => {
+    
+    useEffect(() => {
         document.title = "Reproducción";
         props.getVideo(id);
     }, []);

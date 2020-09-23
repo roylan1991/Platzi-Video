@@ -11,6 +11,7 @@ import serverRoutes from '../frontend/routes/ServerRoutes.js';
 import reducer from '../frontend/reducers/reducers.js';
 import initialState from '../frontend/utils/initialState.js';
 import helmet from 'helmet';
+import Layout from '../frontend/components/Layout';
 
 //busca en el proyecto archivos .env
 dotenv.config();
@@ -19,7 +20,6 @@ const { ENV, PORT } = process.env;
 const app = express();
 
 if (ENV === 'development') {
-    console.log('Development config');
     const webpackConfig = require('../../webpack.config');
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -48,7 +48,7 @@ const setResponse = (html, preloadedState) => {
             <script>
 	            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
             </script>
-        <script src = "assets/app.js" type = "text/javascript" ></script>
+            <script src="assets/app.js" type="text/javascript"></script>
         </body>
     </html> `
     );
@@ -61,7 +61,7 @@ const renderApp = (request, response) => {
     const html = renderToString(
         <Provider store={store}>
             <StaticRouter location={request.url} context={{}}>
-                {renderRoutes(serverRoutes)}
+                <Layout>{renderRoutes(serverRoutes)}</Layout>
             </StaticRouter>
         </Provider>
     );
@@ -76,6 +76,6 @@ app.listen(PORT, (error) => {
         console.log(error);
     } else {
         console.log(`Server running on port ${PORT}`);
-        console.log(`Mode: ${ENV}`);
+        console.log(`Mode:  ${ENV}`);
     }
 });

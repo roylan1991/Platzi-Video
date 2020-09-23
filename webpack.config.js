@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const Webpack = require('webpack');
 
 require('dotenv').config;
@@ -20,7 +21,7 @@ module.exports = {
         publicPath: "/",
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
     },
     module: {
         rules: [
@@ -28,16 +29,8 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: "babel-loader",
                 }
-            },
-            {
-                test: /\.html$/,
-                use: [
-                    {
-                        loader: 'html-loader'
-                    }
-                ]
             },
             {
                 test: /\.(s*)css$/,
@@ -46,7 +39,7 @@ module.exports = {
                         loader: MiniCssExtractPlugin.loader,
                     },
                     'css-loader',
-                    'sass-loader'
+                    'sass-loader',
                 ]
             },
             {
@@ -55,7 +48,7 @@ module.exports = {
                     {
                         'loader': 'file-loader',
                         options: {
-                            name: 'assets/images/[hash].[ext]'
+                            name: 'assets/images/[hash].[ext]',
                         }
                     }
                 ]
@@ -68,7 +61,7 @@ module.exports = {
     plugins: [
         isDev ? new Webpack.HotModuleReplacementPlugin() : () => { },
         new MiniCssExtractPlugin({
-            filename: 'assets/app.css'
+            filename: 'assets/app.css',
         })
     ]
 };

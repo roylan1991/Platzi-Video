@@ -7,8 +7,8 @@ import App from './routes/App';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 
-const history = createBrowserHistory();
 const preloadedState = window.__PRELOADED_STATE__;
+const history = createBrowserHistory();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, preloadedState, composeEnhancers());
 
