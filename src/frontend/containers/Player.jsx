@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { getVideo } from '../actions';
 import NotFound from './NotFound';
@@ -11,7 +11,7 @@ const Player = (props) => {
     const { id } = props.match.params;
     const existPlaying = Object.keys(props.playing).length > 0;
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         document.title = "Reproducción";
         props.getVideo(id);
     }, []);

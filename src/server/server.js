@@ -12,6 +12,7 @@ import reducer from '../frontend/reducers/reducers.js';
 import initialState from '../frontend/utils/initialState.js';
 import helmet from 'helmet';
 import Layout from '../frontend/components/Layout';
+import getManifest from './getManifest';
 
 //busca en el proyecto archivos .env
 dotenv.config();
@@ -29,26 +30,35 @@ if (ENV === 'development') {
     app.use(webpackDevMiddleware(compiler, serverConfig));
     app.use(webpackHotMiddleware(compiler));
 } else {
+    app.use((request, response, next) => {
+        if (!request.hashManifest) {
+            request.hashManifest = getManifest();
+        }
+        next();
+    });
     app.use(express.static(`${__dirname}/public`));
     app.use(helmet());
     app.use(helmet.permittedCrossDomainPolicies());
     app.disable('x-powered-by');
 }
 
-const setResponse = (html, preloadedState) => {
+const setResponse = (html, preloadedState, manifest) => {
+    const mainStyles = manifest ? manifest['main.css'] : 'assets/app.css';
+    const mainBuild = manifest ? manifest['main.js'] : 'assets/app.js';
+
     return (`
     <!DOCTYPE html>
     <html>
         <head>
             <title>Platzi Video</title>
-            <link href="assets/app.css" rel='stylesheet' type="text/css">
+            <link href=${mainStyles} rel='stylesheet' type="text/css">
         </head>
         <body> 
             <div id="app">${html}</div>
             <script>
 	            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
             </script>
-            <script src="assets/app.js" type="text/javascript"></script>
+            <script src=${mainBuild} type="text/javascript"></script>
         </body>
     </html> `
     );
@@ -61,12 +71,13 @@ const renderApp = (request, response) => {
     const html = renderToString(
         <Provider store={store}>
             <StaticRouter location={request.url} context={{}}>
-                <Layout>{renderRoutes(serverRoutes)}</Layout>
+                {/* <Layout>{renderRoutes(serverRoutes)}</Layout> */}
+                {renderRoutes(serverRoutes)}
             </StaticRouter>
         </Provider>
     );
 
-    response.send(setResponse(html, preloadedState));
+    response.send(setResponse(html, preloadedState, request.hashManifest));
 };
 
 app.get('*', renderApp);
