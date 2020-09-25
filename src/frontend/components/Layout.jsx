@@ -1,18 +1,18 @@
 import React from 'react';
-import Footer from './Footer';
 import PropTypes from 'prop-types';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
-    return (
-        <div className="App">           
-            {children}
-            <Footer />
-        </div>
-    )
-}
+  return (
+    <div className='App'>
+      {children}
+      <Footer />
+    </div>
+  );
+};
 
 Layout.propTypes = {
-    children: PropTypes.object,    
+  children: PropTypes.object,
 };
 
 export default Layout;
